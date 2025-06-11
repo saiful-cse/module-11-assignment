@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Card</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #9b85eb;
+            height: 100vh;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background: #fff;
+            width: 460px;
+            padding: 36px 32px 32px 32px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(60, 60, 90, 0.13);
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .card h2 {
+            text-align: center;
+            color: #5546aa;
+            margin: 0 0 8px 0;
+            letter-spacing: 1px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .row {
+            display: flex;
+            gap: 14px;
+        }
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        label {
+            font-size: 0.98rem;
+            color: #333;
+            margin-bottom: 2px;
+            font-weight: 500;
+            letter-spacing: .2px;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+            padding: 8px 10px;
+            font-size: 1rem;
+            border: 1.1px solid #cfcbe7;
+            border-radius: 7px;
+            background: #faf9fd;
+            outline: none;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="password"]:focus {
+            border-color: #8469e0;
+        }
+        .gender-group {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            margin-top: 4px;
+            margin-bottom: 5px;
+        }
+        .gender-group label {
+            margin: 0 6px 0 0;
+            font-weight: 400;
+            color: #666;
+            font-size: 1rem;
+        }
+        .btn-group {
+            display: flex;
+            gap: 14px;
+            margin-top: 10px;
+        }
+        .btn-cancel, .btn-submit {
+            flex: 1;
+            padding: 11px 0;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.13rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.18s, transform 0.12s;
+        }
+        .btn-cancel {
+            background: #f3f1fa;
+            color: #665e7a;
+            border: 1.1px solid #cbc3ec;
+        }
+        .btn-cancel:hover {
+            background: #ede7fa;
+            color: #7d6cb9;
+            border-color: #a98cf7;
+            transform: scale(1.025);
+        }
+        .btn-submit {
+            background: linear-gradient(90deg, #7367f0 0%, #b97cf7 100%);
+            color: #fff;
+            box-shadow: 0 3px 8px rgba(103, 87, 187, 0.09);
+        }
+        .btn-submit:hover {
+            background: linear-gradient(90deg, #b97cf7 0%, #7367f0 100%);
+            transform: translateY(-2px) scale(1.025);
+        }
+        @media (max-width: 600px) {
+            .card {
+                width: 98vw;
+                min-width: 0;
+                padding: 18px 5vw 22px 5vw;
+            }
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .btn-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Registration</h2>
+        <form>
+            <div class="row">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="gender-group">
+                    <label><input type="radio" name="gender" value="male" required> Male</label>
+                    <label><input type="radio" name="gender" value="female" required> Female</label>
+                    <label><input type="radio" name="gender" value="other" required> Other</label>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn-cancel" onclick="this.form.reset();">Cancel</button>
+                <button type="submit" class="btn-submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

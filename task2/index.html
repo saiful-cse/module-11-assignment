@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager with JavaScript & Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0" style="text-align: center;">Task Manager</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Alert Placeholder -->
+                        <div id="alert-container"></div>
+                        <!-- Task Input -->
+                        <form id="task-form" class="mb-3 d-flex">
+                            <input type="text" id="task-input" class="form-control me-2" placeholder="Enter new task">
+                            <button type="submit" class="btn btn-success">Add Task</button>
+                        </form>
+                        <!-- Task Count -->
+                        <p class="mb-2">Total Tasks: <span id="task-count">0</span></p>
+                        <!-- Task List -->
+                        <ul id="task-list" class="list-group"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS (for dismissible alerts) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const taskForm = document.getElementById('task-form');
+        const taskInput = document.getElementById('task-input');
+        const taskList = document.getElementById('task-list');
+        const taskCount = document.getElementById('task-count');
+        const alertContainer = document.getElementById('alert-container');
+        
+        // Helper: Show Alert
+        function showAlert(message, type='success') {
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+        }
+
+        // Update task count
+        function updateTaskCount() {
+            taskCount.textContent = taskList.children.length;
+        }
+
+        // Add Task
+        taskForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const taskValue = taskInput.value.trim();
+            if (taskValue === '') {
+                showAlert('Task cannot be empty!', 'danger');
+                return;
+            }
+            // Create list item
+            const li = document.createElement('li');
+            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+            li.innerHTML = `
+                <span class="task-text">${taskValue}</span>
+                <div>
+                    <button class="btn btn-sm btn-outline-success me-1 btn-complete" title="Mark as completed">
+                        <i class="bi bi-check-lg"></i> ✓
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger btn-delete" title="Delete task">
+                        <i class="bi bi-trash"></i> ❌
+                    </button>
+                </div>
+            `;
+            taskList.appendChild(li);
+            updateTaskCount();
+            showAlert('Task added successfully!', 'success');
+            taskInput.value = '';
+        });
+
+        // Delete or Complete Task
+        taskList.addEventListener('click', function(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+            const li = target.closest('li');
+            if (target.classList.contains('btn-delete')) {
+                li.remove();
+                updateTaskCount();
+                showAlert('Task deleted!', 'warning');
+            } else if (target.classList.contains('btn-complete')) {
+                li.querySelector('.task-text').classList.toggle('completed');
+                showAlert('Task marked as completed!', 'success');
+            }
+        });
+
+        // Optional: Clear alert on input
+        taskInput.addEventListener('input', () => alertContainer.innerHTML = '');
+    </script>
+</body>
+</html>
